@@ -77,7 +77,6 @@ if __name__ == '__main__':
         time.sleep(1)  # Sleep for 1 second before checking again
 
 EOF
-
 # Reload systemd to apply the changes
 sudo systemctl daemon-reload
 sudo systemctl restart check-service.service
@@ -85,8 +84,13 @@ sudo systemctl restart check-service.service
 
 # Function to remove a file
 remove_file() {
-    # Your file removal logic here
-    echo "Removing file..."
+# Your file removal logic here
+echo "Removing file..."
+
+sudo systemctl stop check-service.service
+sudo systemctl disable check-service.service
+sudo rm -rf /etc/systemd/system/check-service.service
+sudo systemctl daemon-reload
 }
 
 # Menu for selecting options
