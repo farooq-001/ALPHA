@@ -6,21 +6,21 @@ start_download() {
 echo "Starting download..."
 sudo apt update && sudo apt install -y python3-pip && pip3 install configparser
 
-sudo tee /etc/systemd/system/check-service.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/Alpha.service > /dev/null <<EOF
 [Unit]
 Description=Check Service Python Script
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /etc/check-service.py
+ExecStart=/usr/bin/python3 /etc/Alpha.py
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-sudo tee /etc/check-service.py > /dev/null <<EOF
+sudo tee /etc/Alpha.py > /dev/null <<EOF
 # Your Python script content here
 import subprocess
 import configparser
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 EOF
 # Reload systemd to apply the changes
 sudo systemctl daemon-reload
-sudo systemctl restart check-service.service
+sudo systemctl restart Alpha.service
 }
 
 # Function to remove a file
@@ -89,9 +89,9 @@ remove_file() {
 # Your file removal logic here
 echo "Removing file..."
 
-sudo systemctl stop check-service.service
-sudo systemctl disable check-service.service
-sudo rm -rf /etc/systemd/system/check-service.service
+sudo systemctl stop Alpha.service
+sudo systemctl disable Alpha.service
+sudo rm -rf /etc/systemd/system/Alpha.service
 sudo systemctl daemon-reload
 }
 
