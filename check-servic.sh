@@ -2,9 +2,11 @@
 
 # Function to start the download
 start_download() {
-    # Your download logic here
-    echo "Starting download..."
-    sudo tee /etc/systemd/system/check-service.service > /dev/null <<EOF
+# Your download logic here
+echo "Starting download..."
+sudo apt update && sudo apt install -y python3-pip && pip3 install configparser
+
+sudo tee /etc/systemd/system/check-service.service > /dev/null <<EOF
 [Unit]
 Description=Check Service Python Script
 After=network.target
