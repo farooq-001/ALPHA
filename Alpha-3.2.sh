@@ -39,7 +39,7 @@ fi
 
 sudo tee /etc/systemd/system/Alpha.service > /dev/null <<EOF
 [Unit]
-Description=[SNB_TECH] Alpha-3.2 started monitoring listing services
+Description=[SNB_TECH] Alpha-3.2 monitoring listing services
 After=network.target
 
 [Service]
