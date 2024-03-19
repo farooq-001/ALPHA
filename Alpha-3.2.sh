@@ -4,7 +4,38 @@
 start_download() {
 # Your download logic here
 echo "Starting download..."
-sudo apt update && sudo apt install -y python3-pip && pip3 install configparser
+# Check if /etc/os-release exists
+if [ -f "/etc/os-release" ]; then
+    # Read the value of the ID variable from /etc/os-release
+    source /etc/os-release
+    case "$ID" in
+        debian|ubuntu)
+            echo "Detected Debian/Ubuntu"
+            sudo apt update && sudo apt upgrade -y
+            sudo apt install -y python3-pip
+            pip3 install configparser
+            ;;
+        centos|rhel|rocky)
+            echo "Detected CentOS/RHEL/Rocky"
+            sudo yum update -y
+            sudo yum install -y python3-pip
+            pip3 install configparser
+            ;;
+        fedora)
+            echo "Detected Fedora"
+            sudo dnf update -y
+            sudo dnf install -y python3-pip
+            pip3 install configparser
+            ;;
+        *)
+            echo "Unsupported distribution: $ID"
+            exit 1
+            ;;
+    esac
+else
+    echo "/etc/os-release not found. Unable to determine distribution."
+    exit 1
+fi
 
 sudo tee /etc/systemd/system/Alpha.service > /dev/null <<EOF
 [Unit]
