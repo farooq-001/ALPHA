@@ -14,18 +14,21 @@ if [ -f "/etc/os-release" ]; then
             sudo apt update && sudo apt upgrade -y
             sudo apt install -y python3-pip
             pip3 install configparser
+            sudo apt-get update && sudo apt-get install -y python3-pip python3-dev build-essential && pip3 install psutil
             ;;
         centos|rhel|rocky)
             echo "Detected CentOS/RHEL/Rocky"
             sudo yum update -y
             sudo yum install -y python3-pip
             pip3 install configparser
+            sudo yum install python3-pip python3-devel && sudo yum install gcc python3-devel && pip3 install psutil
             ;;
         fedora)
             echo "Detected Fedora"
             sudo dnf update -y
             sudo dnf install -y python3-pip
             pip3 install configparser
+            sudo dnf install python3-pip python3-devel redhat-rpm-config gcc && pip3 install psutil
             ;;
         *)
             echo "Unsupported distribution: $ID"
